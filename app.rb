@@ -1,6 +1,23 @@
 require "sinatra/base"
 
+IMAGES = [
+	{title: "gunbound", url:"http://media.giantbomb.com/uploads/0/6017/396592-gunbound_recensione_pc_t5_large.jpg"},
+	{title: "navyfield", url:"http://i2.fastpic.ru/big/2011/0514/75/2bea82b8aa7822705e3d215b06df5075.jpg"},
+	{title: "hon", url:"http://www.hon-utilities.com/wp-content/uploads/2010/05/tundra-hon-guide-release.jpg"},
+]
+
 class App < Sinatra::Base
+	get '/images' do
+		@images = IMAGES
+		erb :images
+	end
+	
+	get '/images/:index' do |index|
+		index = index.to_i
+		@image = IMAGES[index]
+		haml :"images/show", layout :true
+	end
+	
 	get '/' do
 		"Hello World"
 	end
