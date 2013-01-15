@@ -7,6 +7,16 @@
 	<body>		
 		<h1>Using ERB layout.</h1>
 		<p>The current user is <%= @user %></p>
+
+		<ul>
+			<li>
+				<a href="/sessions/new">New session</a>
+			</li>
+			<li>
+				<%= @height %>
+			</li>
+		</ul>
+
 		<% if @message %>
 		<p>You have a message:</p>
 		<blockquote>
