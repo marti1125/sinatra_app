@@ -7,6 +7,20 @@ IMAGES = [
 ]
 
 class App < Sinatra::Base
+
+	before /images/ do
+		@message = "You're viewing an image."
+	end
+	
+	before do
+		@user = "Willy Aguirre"
+		puts "==> Entering request"
+	end
+	
+	after do
+		puts "<== Leaving request"
+	end
+	
 	get '/images' do
 		@images = IMAGES
 		erb :images
@@ -15,11 +29,12 @@ class App < Sinatra::Base
 	get '/images/:index' do |index|
 		index = index.to_i
 		@image = IMAGES[index]
-		haml :"images/show", layout :true
+		
+		haml :"images/show", layout: true
 	end
 	
 	get '/' do
-		"Hello World"
+		erb :hello, layout: true
 	end
 	
 	post '/' do
@@ -37,4 +52,5 @@ class App < Sinatra::Base
 	get "hello/:first_name/?:last_name" do |first,last|
 		"Hello #{first} #{last}"
 	end
+	
 end

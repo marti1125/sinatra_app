@@ -4,8 +4,15 @@
 		<meta charset="utf-8"/>
 		<title>Layout</title>
 	</head>
-	<body>
+	<body>		
 		<h1>Using ERB layout.</h1>
+		<p>The current user is <%= @user %></p>
+		<% if @message %>
+		<p>You have a message:</p>
+		<blockquote>
+			<%= @message %>
+		</blockquote>
+		<% end %>
 		<%= yield %>
 	</body>
 </html>
