@@ -1,9 +1,9 @@
 require "sinatra/base"
 
 IMAGES = [
-	{title: "gunbound", url:"http://media.giantbomb.com/uploads/0/6017/396592-gunbound_recensione_pc_t5_large.jpg"},
-	{title: "navyfield", url:"http://i2.fastpic.ru/big/2011/0514/75/2bea82b8aa7822705e3d215b06df5075.jpg"},
-	{title: "hon", url:"http://www.hon-utilities.com/wp-content/uploads/2010/05/tundra-hon-guide-release.jpg"},
+	{title: "gunbound", url:"/images/0.jpg"},
+	{title: "navyfield", url:"/images/1.jpg"},
+	{title: "hon", url:"/images/2.jpg"},
 ]
 
 class App < Sinatra::Base
@@ -39,12 +39,25 @@ class App < Sinatra::Base
 		@images = IMAGES
 		erb :images
 	end
+
+	get '/images/:index/download' do |index|
+		@image = IMAGES[index.to_i]
+		attachment @image[:title]
+		send_file "images/#{index}.jpg"
+	end
 	
-	get '/images/:index' do |index|
+	get '/images/:index.?:format?' do |index, format|
 		index = index.to_i
 		@image = IMAGES[index]
+		@index = index
 		
-		haml :"images/show", layout: true
+		if format == "jpg"
+			content_type :jpg #image/jpg
+			send_file "images/#{index}.jpg"
+		else
+			haml :"images/show", layout: true
+		end
+		
 	end
 	
 	get '/' do
