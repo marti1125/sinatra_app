@@ -39,6 +39,8 @@ class App < Sinatra::Base
 	before do
 		@user = "Willy Aguirre"
 		@height = session[:height]
+		@environment = settings.environment
+		#@request = request
 		logger = Log4r::Logger["app"]
 		logger.info "==> Entering request"
 		logger.debug settings.foo

@@ -15,6 +15,9 @@
 			<li>
 				<%= @height %>
 			</li>
+			<li>
+				The current environment is: <%= @environment %>
+			</li>
 		</ul>
 
 		<% if @message %>
@@ -24,5 +27,10 @@
 		</blockquote>
 		<% end %>
 		<%= yield %>
+
+		<!-- % #if @environment == "development" %-->
+		<pre>
+			<!-- %= #@request.inspect %-->
+		</pre>
 	</body>
 </html>
