@@ -14,11 +14,34 @@ class App < Sinatra::Base
 		@message = "You're viewing an image."
 	end
 	
+	configure do
+		# set: environmenet, ENV["RACK_ENV"]
+		# :environment
+		# :logging
+		# :method_override
+		# set :public_folder, "assets"
+		# :raise_errors
+		# :root
+		# :sessions
+		# :show_exepctions
+		# :static
+		# :views
+		# set :views, "templates"
+		set({ foo: "bar", baz: "foo"})
+	end
+
+	configure :development do
+	end
+
+	configure :production do
+	end
+
 	before do
 		@user = "Willy Aguirre"
 		@height = session[:height]
 		logger = Log4r::Logger["app"]
 		logger.info "==> Entering request"
+		logger.debug settings.foo
 	end
 	
 	after do
