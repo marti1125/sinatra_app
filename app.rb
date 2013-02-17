@@ -9,7 +9,7 @@ IMAGES = [
 class App < Sinatra::Base
 
 	enable :sessions
-	disable :show_exceptions
+	#disable :show_exceptions
 	register Sinatra::Prawn
 	register Sinatra::Namespace
 
@@ -89,7 +89,7 @@ class App < Sinatra::Base
 	namespace "/images" do
 		get do # /images
 			@images = Image.all
-			haml :"/images/index"
+			haml :"/images/index", layout_engine: :erb
 		end
 
 		get "/:id" do |id|
