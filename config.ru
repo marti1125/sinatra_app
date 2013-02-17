@@ -1,5 +1,5 @@
 require "rubygems"
-require "log4r"
+Bundler.require
 require "./app"
 
 logger = Log4r::Logger.new "app"

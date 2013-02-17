@@ -10,6 +10,7 @@ class App < Sinatra::Base
 
 	enable :sessions
 	disable :show_exepctions
+	register Sinatra::Prawn
 
 	before /images/ do
 		@message = "You're viewing an image."
@@ -75,6 +76,13 @@ class App < Sinatra::Base
 	post '/sessions' do
 		session[:height] = params[:height]
 		puts request.inspect
+	end
+
+	get "/sample.pdf" do
+		attachment
+		content_type :pdf
+		@message = "Hello from the PDF!"
+		prawn :samplepdf
 	end
 	
 	get '/images' do
