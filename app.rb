@@ -9,8 +9,9 @@ IMAGES = [
 class App < Sinatra::Base
 
 	enable :sessions
-	disable :show_exepctions
+	disable :show_exceptions
 	register Sinatra::Prawn
+	register Sinatra::Namespace
 
 	before /images/ do
 		@message = "You're viewing an image."
@@ -83,6 +84,23 @@ class App < Sinatra::Base
 		content_type :pdf
 		@message = "Hello from the PDF!"
 		prawn :samplepdf
+	end
+
+	namespace "/images" do
+		get do # /images
+			@images = Image.all
+			haml :"/images/index"
+		end
+
+		get "/:id" do |id|
+			@image = Image.get(id)
+			haml %s(images/show), layout_engine: :erb
+		end
+
+		post do
+			@image = Image.create params[:image]
+			redirect "/images"
+		end
 	end
 	
 	get '/images' do

@@ -1,6 +1,7 @@
 require "rubygems"
 Bundler.require
 require "./app"
+require "./db"
 
 logger = Log4r::Logger.new "app"
 logger.outputters << Log4r::Outputter.stderr
